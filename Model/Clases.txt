@@ -125,3 +125,17 @@
         Paciente
         Sucursal
         FechaHora
+
+#App Ejercicios
+
+Usuario
+    -Peso
+    -Estatura
+
+Ejercicio
+    -Tipo
+    -Duracion
+    -Descripcion
+
+Rutina
+    Ejercicios

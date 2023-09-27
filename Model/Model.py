@@ -37,6 +37,49 @@ class Usuario:
         os.system("cls")
         for M in self.BandejaEntrada:
             print(f"De: {M.Remitente.NombrePerfil} Mensaje: {M.Mensaje}")
+
+    def AgregarPost(self, texto, img):
+        post = Post(img=img, texto=texto, user=self)
+        self.Posts.append(post)
+        input("Post Creado!")
+
+    def VerPosts(self):
+        print(f"Tienes {len(self.Posts)} Posts")
+        for p in self.Posts:
+            print(p.Texto)
+            print(p.Imagen)
+            print(f"Likes : {len(p.ListaLikes)}")
+            print(f"Comentarios : {len(p.ListaComentarios)}")
+            if(len(p.ListaComentarios) > 0):
+                print("Comentarios: ")
+                for c in p.ListaComentarios:
+                    print(f"User: {c.Usuario.NombrePerfil} Comentario: {c.Texto}")
+
+    def DarLike(self, p):
+        like = Like(self, p)
+        p.ListaLikes.append(like)
+        input("Like Agregado!")
+
+class Post:
+    def __init__(self, user, texto, img):
+        self.ListaComentarios = []
+        self.ListaLikes = []
+        self.Usuario = user
+        self.Texto = texto
+        self.Imagen = img
+
+class Comentario:
+    def __init__(self, user, comentario, post):
+        self.Usuario = user
+        self.Texto = comentario
+        self.Post = post
+
+class Like:
+    def __init__(self, user, post):
+        self.Usuario = user
+        self.Post = post
+        self.Fecha = datetime.datetime.now()
+
             
 class Mensaje:
     def __init__(self, user, destinatario, mensaje):
@@ -58,6 +101,7 @@ m14 = Usuario("m14@chile.cl", "Matias Fernandez", "Matigol", "1234")
 
 
 listaUsuarios = [colocolooficial, messi, elbicho, m14]
+userLogueado = None
 
 while True:
     os.system("cls")
@@ -87,5 +131,55 @@ while True:
             contra = input("Ingrese Contraseña: ")
             if(user.Password == contra):
                 input("Inicio de Sesion Correcto!")
+                userLogueado = user
             else:
                 input("Contraseña Incorrecta")
+                break
+        
+        if(not userLogueado == None):
+            while True:
+                print("[1] - Postear")
+                print("[2] - Seguir")
+                print("[3] - Ver Seguidores")
+                print("[4] - Ver Seguidos")
+                print("[5] - Ver Posts")
+                print("[6] - Dar Like")
+                print("[7] - Comentar Post")
+
+                print("[0] - Cerrar Sesion")
+                accion = input("Seleccione Accion: ")
+
+                if(accion == "1"):
+                    #Generar Post
+                    os.system("cls")
+                    t = input("Texto del Post: ")
+                    img = input("Url de la Imagen: ")
+                    userLogueado.AgregarPost(t,img)
+
+                if(accion == "5"):
+                    #Seguir
+                    userLogueado.VerPosts()
+                    input()
+
+                if(accion == "6"):
+                    os.system("cls")
+                    for u in listaUsuarios:
+                        if(len(u.Posts) > 0):
+                            contador = 1
+                            for p in u.Posts:
+                                print(f"[{contador}] Usuario: {p.Usuario.NombrePerfil} Post: {p.Texto} Img: {p.Imagen}")
+                                contador += 1
+                    us = input("Usuario: ")
+                    p = int(input("Numero Post: "))
+                    usuario = None
+                    for u in listaUsuarios:
+                        if(u.NombrePerfil == us):
+                            usuario = u
+
+                    userLogueado.DarLike(usuario.Posts[p-1])
+                    input()
+                
+
+
+
+#Task 1 : Obtener usuario logueado
