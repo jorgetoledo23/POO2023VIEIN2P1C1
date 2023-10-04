@@ -1,6 +1,6 @@
 from typing import List
 class Alumno:
-
+    """ Clase que define la estructura de un Alumno """
     def __init__(self, rut, nombre:str, apellido:str):
         self.Rut = rut
         self.Nombre = nombre.title() + " " + apellido.title() #jhon => Jhon
@@ -22,6 +22,7 @@ class Alumno:
         
     
     def getPromedio(self):
+        """Metodo que retorna el Promedio de un Alumno"""
         if(len(self.LibroNotas) > 0):
             total:float = 0
             for nota in self.LibroNotas:
