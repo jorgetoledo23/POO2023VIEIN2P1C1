@@ -73,6 +73,7 @@ while True:
         desc = input("Ingresa la Descripcion del Producto o Promocion: ")
         valor = input("Ingresa Valor del Producto o Promocion: ")
         p = Producto(cod, nom, desc, valor)
+        listaProductos.append(p)
         input("Producto Agregado con Exito! Presiona Enter para Continuar...")
 
     if(op == "2"):
