@@ -20,6 +20,21 @@ class DAO:
         cursor.execute(query, data)
         self.cnx.commit()
 
+    def EliminarCategoria(self, cod:int)->None:
+        cursor = self.cnx.cursor()
+        query = ("DELETE FROM categorias WHERE cod_categoria = %s")
+        data = (cod,)
+        cursor.execute(query, data)
+        self.cnx.commit()
+
+    def ActualizarCategoria(self, asd:Categoria)->None:
+        cursor = self.cnx.cursor()
+        query = ("UPDATE categorias SET nombre = %s WHERE cod_categoria = %s")
+        data = (asd.getNombreCategoria(), asd.getCodigoCategoria())
+        cursor.execute(query, data)
+        self.cnx.commit()
+
+
     def InsertarProducto(self, Producto:Producto)->None:
         cursor = self.cnx.cursor()
         query = ("INSERT INTO PRODUCTOS (COD_PRODUCTO, NOMBRE, VALOR_UNITARIO, STOCK, COD_CATEGORIA) VALUES (%s, %s, %s, %s, %s)")
