@@ -1,3 +1,0 @@
-Generar Tabla de Base de Datos de Interes y programar opciones de
-Crear y Leer 
-
